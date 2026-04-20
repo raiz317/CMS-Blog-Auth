@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 // Tambahkan ini agar folder admin (frontend) bisa diakses
-app.use(express.static(path.join(__dirname, '../admin')));
+app.use(express.static(path.join(__dirname, 'admin')));
 
 
 mongoose.connect(process.env.MONGO_URI || 'mongodb://mongodb:27017/cms_db');
