@@ -5,9 +5,14 @@ const multer = require('multer');
 const path = require('path');
 
 const app = express();
+const PORT = process.env.PORT || 5000;
+
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
+// Tambahkan ini agar folder admin (frontend) bisa diakses
+app.use(express.static(path.join(__dirname, '../admin')));
+
 
 mongoose.connect(process.env.MONGO_URI || 'mongodb://mongodb:27017/cms_db');
 
@@ -27,6 +32,10 @@ const User = mongoose.model('User', new mongoose.Schema({
 
 // MODEL POST
 const Post = mongoose.model('Post', { title: String, content: String, image: String });
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../admin/index.html'));
+});
 
 // --- LOGIKA REGISTER ---
 app.post('/auth/register', async (req, res) => {
@@ -83,5 +92,4 @@ app.delete('/posts/:id', async (req, res) => {
     }
 });
 
-
-app.listen(5000, () => console.log('Backend jalan di port 5000'));
+app.listen(PORT, () => console.log(`Backend jalan di port ${PORT}`));
