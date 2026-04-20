@@ -34,7 +34,7 @@ const User = mongoose.model('User', new mongoose.Schema({
 const Post = mongoose.model('Post', { title: String, content: String, image: String });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../admin/index.html'));
+    res.sendFile(path.join(__dirname, 'admin/index.html'));
 });
 
 // --- LOGIKA REGISTER ---
